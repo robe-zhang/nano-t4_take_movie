@@ -1,0 +1,29 @@
+#!/bin/bash
+
+src_dir=/samba/photo
+dist_dir=/samba/photo_timestamp
+
+
+
+All_photo=$(ls $src_dir)
+
+for var_robe in $All_photo;do
+if [ -f ${dist_dir}/${var_robe} ];then
+	continue;
+fi
+year_utc8_robe=$(( 10#${var_robe:0:4} ))
+month_utc8_robe=$(( 10#${var_robe:4:2} ))
+day_utc8_robe=$(( ( 10#${var_robe:8:2} + 8 ) / 24 + 10#${var_robe:6:2} ))
+hour_utc8_robe=$(( ( 10#${var_robe:8:2} + 8 ) % 24 ))
+minth_utc8_robe=$(( 10#${var_robe:10:2} ))
+
+year_robe=$(printf "%02d" $year_utc8_robe)
+month_robe=$(printf "%02d" $month_utc8_robe)
+day_robe=$(printf "%02d" $day_utc8_robe)
+hour_robe=$(printf "%02d" $hour_utc8_robe)
+minth_robe=$(printf "%02d" $minth_utc8_robe)
+
+echo $var_robe "    " $year_robe $month_robe $day_robe $hour_robe $minth_robe
+ffmpeg -i ${src_dir}/$var_robe -vf drawtext=fontcolor=white:fontsize=40:text="$year_robe.$month_robe.$day_robe @ $hour_robe clock":x=20:y=20:fontsize=48:fontcolor=green:shadowy=2 ${dist_dir}/$var_robe
+
+done

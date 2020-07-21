@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ffmpeg -s 1280x720 -f video4linux2 -i /dev/video10 -vframes 1 /samba/photo/$(date "+%d%H%M").jpeg
+ffmpeg -s 1280x720 -f video4linux2 -i /dev/video10 -vframes 1 /samba/photo/$(date "+%Y%m%d%H%M").jpeg
 echo "$(date): $? ." >> /samba/take_photo.log
 
 

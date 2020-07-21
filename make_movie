@@ -1,0 +1,11 @@
+#!/bin/bash
+
+src_dir=/samba/photo_timestamp
+
+# ffmpeg -framerate 60 -pattern_type glob -i "${src_dir}/*.jpeg" -vcodec mpeg4 /samba/movie-$(date "+%Y%m%d%H%M%S").avi
+
+# ffmpeg -framerate 120 -pattern_type glob -i "${src_dir}/*.jpeg" -s 640x360 -f gif -r 30 /samba/movie-$(date "+%Y%m%d%H%M%S").gif
+
+# ffmpeg -framerate 120 -pattern_type glob -i "${src_dir}/*.jpeg" -s 640x360 -f gif -r 30 /samba/movie-$(date "+%Y%m%d%H%M%S").gif
+
+ffmpeg -framerate 120 -pattern_type glob -i "${src_dir}/*.jpeg" -c:v libx264 -r 30 -pix_fmt yuv420p /samba/movie-$(date "+%Y%m%d%H%M%S").mp4
